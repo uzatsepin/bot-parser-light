@@ -74,5 +74,5 @@ function saveSession(session) {
         console.log(`${Date.now()} message checked, interval worked`);
     };
 
-    setInterval(checkNewMessages, 30000);
+    setInterval(checkNewMessages, 2 * 60 * 1000);
 })();
