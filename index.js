@@ -45,7 +45,7 @@ function saveSession(session) {
 
     saveSession(client.session);
 
-    const channel = '@esvitlo_kiev';
+    const channel = '@esvitlo_kyiv_ua';
 
     const initialMessages = await client.getMessages(channel, {
         limit: 1,
