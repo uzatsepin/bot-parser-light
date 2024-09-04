@@ -19,3 +19,5 @@ function parseMessage(messageText) {
     }
     return null;
 }
+
+module.exports = parseMessage;
