@@ -1,20 +1,23 @@
 function parseMessage(messageText) {
     const datePattern = /О (\d{2}:\d{2})/;
-    const actionPattern = /(В(ідключаємо|имикаємо|ключаємо|микаємо) \d+ групу)/;
+    const actionPattern = /(В(ідключаємо|имикаємо|ключаємо|микаємо) 2 групу|2 група залишається відключеною)/;
 
     const dateMatch = messageText.match(datePattern);
     const actionMatch = messageText.match(actionPattern);
 
     if (dateMatch && actionMatch) {
-        const isOff = actionMatch[1].includes('В(ідключаємо|имикаємо)');
-        const isOn = actionMatch[1].includes('В(ключаємо|микаємо)');
+        let status = 'off';
+        if (actionMatch[1].includes('Вмикаємо') || actionMatch[1].includes('Включаємо')) {
+            status = 'on';
+        } else if (actionMatch[1].includes('залишається відключеною')) {
+            status = 'off';
+        }
 
         return {
             isChanged: true,
-            date: dateMatch ? `О ${dateMatch[1]}` : null,
+            date: `О ${dateMatch[1]}`,
             action: actionMatch[1],
-            isOff: isOff ? true : undefined,
-            isOn: isOn ? true : undefined,
+            status: status,
         };
     }
     return null;

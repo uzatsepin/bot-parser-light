@@ -64,7 +64,7 @@ function saveSession(session) {
                 if (parsedMessage) {
                     console.log(`Parsed Message:`, parsedMessage);
 
-                    await bot.api.sendMessage(chatId, `${parsedMessage.isOn ? `🟢 ${parsedMessage.date} буде переключення групп і наша (2 група) буде <b>увімкнена.</b>` : `🔴 ${parsedMessage.date} буде переключення групп і наша (2 група) буде <b>вимкнена</b>.`}\n\n<i>ℹ️ Майте на увазі, це приблизний час, який може відрізнятись від фактичного на 30 хвилин.\n\n💡Інформація була надана з джерел, які мають інформацію про переключення світла.</i>`, {
+                    await bot.api.sendMessage(chatId, `${parsedMessage.status === 'on' ? `💡 ${parsedMessage.date} \n\n🟢 ${parsedMessage.action}` : `🕯️ ${parsedMessage.date} \n\n🔴 ${parsedMessage.action}`} \n\n<blockquote>ℹ️ Повернення та відключення світла займає від кількох хвилин до години.</blockquote>`, {
                         parse_mode: "HTML"
                     });
                 }
@@ -74,5 +74,5 @@ function saveSession(session) {
         console.log(`${Date.now()} message checked, interval worked`);
     };
 
-    setInterval(checkNewMessages, 2 * 60 * 1000);
+    setInterval(checkNewMessages, 5 * 60 * 1000);
 })();
